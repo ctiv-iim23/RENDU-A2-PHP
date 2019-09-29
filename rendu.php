@@ -61,6 +61,9 @@ $select_type_name = $pdo->prepare("SELECT * FROM types");
 $select_type_name->execute();
 $scttype = $select_type_name->fetchAll(PDO::FETCH_OBJ);
 
+$select_name = $pdo->prepare("SELECT * FROM personnages");
+$select_name->execute();
+
 
 ?>
 
@@ -122,8 +125,8 @@ if (!empty($_POST)) {
     $name = $_POST["name"];
     $atk = $_POST["atk"];
     $pv = $_POST["pv"];
-    $type = $_POST["type"];
-    $add_form = $pdo->prepare('INSERT INTO personnages (name,atk,pv,type_id) VALUES ("'.$name.','.$atk.','.$pv.','.$type.'")');
+    $type_id = $_POST["type"];
+    $add_form = $pdo->prepare('INSERT INTO personnages (name,atk,pv,type_id) VALUES ("'.$name.','.$atk.','.$pv.','.$type_id.'")');
     $add_form->execute();
     echo "PERSONNAGE " . $_POST["name"] . " CREER";
 }
