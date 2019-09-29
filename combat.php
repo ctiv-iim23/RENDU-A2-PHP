@@ -53,10 +53,20 @@ require __DIR__ . "/vendor/autoload.php";
 
     <form action="">
         <div class="form-group">
-            <select name="" id=""></select>
+            <select name="perso1" id="">
+                <option value="" selected disabled>Choissisez le 1er Personnage</option>
+                <?php foreach ($allPerso as $perso) { ?>
+                    <option value="<?= $perso->id ?>"><?= $perso->name ?> </option>
+                <?php } ?>
+            </select>
         </div>
         <div class="form-group">
-            <select name="" id=""></select>
+            <select name="perso2" id="">
+                <option value="" selected disabled>Choissisez le 2eme Personnage</option>
+                <?php foreach ($allPerso as $perso) { ?>
+                    <option value="<?= $perso->id ?>"><?= $perso->name ?> </option>
+                <?php } ?>
+            </select>
         </div>
 
         <button class="btn">Fight</button>

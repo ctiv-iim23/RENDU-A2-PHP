@@ -53,6 +53,15 @@ require __DIR__ . "/vendor/autoload.php";
 
 # ENREGISTRER 5 / 6 PERSONNAGE DIFFERENT
 
+$pdo = new PDO('mysql:host=127.0.0.1;dbname=rendu_a2_php', "root", ""); // CONNEXION TO DB
+$query = $pdo->prepare("SELECT * FROM personnages");
+$query->execute();
+
+$select_type_name = $pdo->prepare("SELECT * FROM types");
+$select_type_name->execute();
+$scttype = $select_type_name->fetchAll(PDO::FETCH_OBJ);
+
+
 ?>
 
 
@@ -93,6 +102,12 @@ require __DIR__ . "/vendor/autoload.php";
             <label for="">Type</label>
             <select name="" id="">
                 <option value="" selected disabled>Choissisez un type</option>
+                <?php
+                foreach($scttype as $key => $value): ;?>
+                    <option value="<?php echo $value->id?>">
+                        <?php echo $value->name?>
+                    </option>
+                <?php endforeach; ?>
             </select>
         </div>
         <button class="btn btn-primary">Enregistrer</button>
@@ -101,3 +116,17 @@ require __DIR__ . "/vendor/autoload.php";
 
 </body>
 </html>
+
+<?php
+if (!empty($_POST)) {
+    $name = $_POST["name"];
+    $atk = $_POST["atk"];
+    $pv = $_POST["pv"];
+    $type = $_POST["type"];
+    $add_form = $pdo->prepare('INSERT INTO personnages (name,atk,pv,type_id) VALUES ("'.$name.','.$atk.','.$pv.','.$type.'")');
+    $add_form->execute();
+    echo "PERSONNAGE " . $_POST["name"] . " CREER";
+}
+else {
+    echo  "Veuillez remplir le formulaire";
+}?>
